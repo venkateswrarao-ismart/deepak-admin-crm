@@ -543,7 +543,7 @@ export function ProductForm({ productId }: ProductFormProps) {
                 )}
               />
 
-              {canEditSellingPrice() && (
+              { (
                 <FormField
                   control={form.control}
                   name="selling_price"
