@@ -1,0 +1,51 @@
+/* Custom styles to fix calendar alignment issues */
+.rdp-months {
+  display: flex;
+  justify-content: center;
+}
+
+.rdp-month {
+  margin: 0 1rem;
+}
+
+.rdp-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.rdp-head_cell,
+.rdp-cell {
+  text-align: center;
+  padding: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.rdp-head_cell {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.rdp-day {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.rdp-day_selected {
+  background-color: hsl(var(--primary));
+  color: white;
+}
+
+.rdp-caption {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.rdp-caption_label {
+  font-weight: 500;
+  font-size: 1rem;
+}

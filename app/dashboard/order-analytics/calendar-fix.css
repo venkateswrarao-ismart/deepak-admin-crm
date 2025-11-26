@@ -1,0 +1,64 @@
+/* Calendar alignment fixes */
+.calendar-fix {
+  width: 100%;
+}
+
+.calendar-fix .rdp-months {
+  justify-content: center;
+}
+
+.calendar-fix .rdp-caption {
+  padding: 0;
+}
+
+/* Fix for the day headers alignment */
+.calendar-fix .rdp-head_cell {
+  width: 40px !important;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.calendar-fix .rdp-cell {
+  width: 40px !important;
+  text-align: center;
+  padding: 0;
+}
+
+.calendar-fix .rdp-day {
+  margin: auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-fix .rdp-table {
+  margin: 0;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.calendar-fix .rdp-nav {
+  padding: 2px;
+}
+
+/* Ensure consistent width for all cells */
+.calendar-fix .rdp-tbody tr {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar-fix .rdp-thead {
+  display: table-header-group;
+}
+
+.calendar-fix .rdp-thead tr {
+  display: flex;
+  justify-content: space-between;
+}

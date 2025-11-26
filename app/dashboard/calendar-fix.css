@@ -1,0 +1,73 @@
+/* Custom styles to fix calendar alignment issues */
+.rdp {
+  --rdp-cell-size: 40px;
+  margin: 0;
+}
+
+.rdp-months {
+  display: flex;
+  justify-content: center;
+}
+
+.rdp-month {
+  background-color: transparent;
+}
+
+.rdp-table {
+  margin: 0;
+  max-width: 100%;
+}
+
+.rdp-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  text-align: left;
+}
+
+.rdp-head_cell,
+.rdp-cell {
+  padding: 0;
+  text-align: center;
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+}
+
+.rdp-head_cell {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.rdp-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.rdp-day_selected {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.rdp-day_range_middle {
+  background-color: #dbeafe;
+  border-radius: 0;
+}
+
+.rdp-day_range_start {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.rdp-day_range_end {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
