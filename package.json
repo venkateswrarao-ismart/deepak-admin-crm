@@ -44,6 +44,7 @@
     "react": "19.1.0",
     "react-chartjs-2": "latest",
     "react-day-picker": "latest",
+    "@radix-ui/react-radio-group": "^1.2.0",
     "react-dom": "19.1.0",
     "react-hook-form": "latest",
     "react-hot-toast": "latest",
