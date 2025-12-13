@@ -1,3 +1,4 @@
+"use client"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { format } from "date-fns"
@@ -8,10 +9,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { createClient } from "@/lib/supabase/server"
 
-export const metadata: Metadata = {
-  title: "Coupon Management",
-  description: "Manage discount coupons for your application",
-}
+// export const metadata: Metadata = {
+//   title: "Coupon Management",
+//   description: "Manage discount coupons for your application",
+// }
 
 export default async function CouponsPage() {
   const supabase = createClient()
