@@ -68,11 +68,11 @@ export function TopNav() {
           <DropdownMenuContent align="start" className="w-56">
             <DropdownMenuLabel>Navigation</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
+            {/* <DropdownMenuItem asChild>
               <Link href="/dashboard" className="w-full">
                 Dashboard
               </Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem asChild>
               <Link href="/dashboard/orders" className="w-full">
                 Orders
@@ -88,31 +88,31 @@ export function TopNav() {
                 Categories
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
+            {/* <DropdownMenuItem asChild>
               <Link href="/dashboard/vendors" className="w-full">
                 Vendors
               </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
+            </DropdownMenuItem> */}
+            {/* <DropdownMenuItem asChild>
               <Link href="/dashboard/shop-owners" className="w-full">
                 Shop Owners
               </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
+            </DropdownMenuItem> */}
+            {/* <DropdownMenuItem asChild>
               <Link href="/dashboard/customers" className="w-full">
                 Customers
               </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
+            </DropdownMenuItem> */}
+            {/* <DropdownMenuItem asChild>
               <Link href="/dashboard/unplaced" className="w-full">
                 Unplaced Orders
               </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
+            </DropdownMenuItem> */}
+            {/* <DropdownMenuItem asChild>
               <Link href="/dashboard/coupons" className="w-full">
                 Coupons
               </Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut} className="text-red-500">
               <LogOut className="mr-2 h-4 w-4" />
@@ -123,8 +123,8 @@ export function TopNav() {
        
          <div className="flex items-center gap-2">
           <Link href="/dashboard">
-          <Image src="/ismart2-logo.png" alt="iSmart Logo" width={40} height={40} className="h-8 w-auto" />
-          <span className="hidden font-bold md:inline-block">iSmart Admin</span>
+          <Image src="/rent-xp.png" alt="iSmart Logo" width={40} height={40} className="h-8 w-auto" />
+          <span className="hidden font-bold md:inline-block">RentXP</span>
            </Link>
          </div>
        

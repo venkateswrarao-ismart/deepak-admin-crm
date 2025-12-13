@@ -116,7 +116,7 @@ export function DashboardNav() {
       </div>*/}
 
       <div className="flex flex-col space-y-1 px-3">
-        <Link href="/dashboard" className="w-full">
+        {/* <Link href="/dashboard" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname === "/dashboard" ? "bg-blue-900/50 text-blue-300 font-medium" : "text-gray-300 hover:bg-gray-800"
@@ -125,7 +125,7 @@ export function DashboardNav() {
             <LayoutDashboard className="h-5 w-5" />
             Dashboard
           </div>
-        </Link>
+        </Link> */}
 
         <Link href="/dashboard/orders" className="w-full">
           <div
@@ -153,7 +153,7 @@ export function DashboardNav() {
           </div>
         </Link>)}
 
-        <Link href="/dashboard/order-analytics" className="w-full">
+        {/* <Link href="/dashboard/order-analytics" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/order-analytics")
@@ -164,7 +164,7 @@ export function DashboardNav() {
             <BarChart3 className="h-5 w-5" />
             Order Analytics
           </div>
-        </Link>
+        </Link> */}
 
         <Link href="/dashboard/products" className="w-full">
           <div
@@ -205,7 +205,7 @@ export function DashboardNav() {
           </div>
         </Link>
 
-        <Link href="/dashboard/vendors" className="w-full">
+        {/* <Link href="/dashboard/vendors" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/vendors")
@@ -216,9 +216,9 @@ export function DashboardNav() {
             <Store className="h-5 w-5" />
             Vendors
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/dashboard/shop-owners" className="w-full">
+        {/* <Link href="/dashboard/shop-owners" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/shop-owners")
@@ -229,9 +229,9 @@ export function DashboardNav() {
             <Users className="h-5 w-5" />
             Shop Owners
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/dashboard/customers" className="w-full">
+        {/* <Link href="/dashboard/customers" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/customers")
@@ -242,12 +242,12 @@ export function DashboardNav() {
             <Users className="h-5 w-5" />
             Customers
           </div>
-        </Link>
+        </Link> */}
 
 
 
 
-        <Link href="/dashboard/unplaced" className="w-full">
+        {/* <Link href="/dashboard/unplaced" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/unplaced")
@@ -258,9 +258,9 @@ export function DashboardNav() {
             <Package className="h-5 w-5" />
             Unplaced Orders
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/dashboard/coupons" className="w-full">
+        {/* <Link href="/dashboard/coupons" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/coupons")
@@ -271,9 +271,9 @@ export function DashboardNav() {
             <Package className="h-5 w-5" />
             Coupons
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/dashboard/sales_asm" className="w-full">
+        {/* <Link href="/dashboard/sales_asm" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/sales_asm")
@@ -284,9 +284,9 @@ export function DashboardNav() {
             <Package className="h-5 w-5" />
             Sales ASM
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/dashboard/sales-executive" className="w-full">
+        {/* <Link href="/dashboard/sales-executive" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/sales-executive")
@@ -297,9 +297,9 @@ export function DashboardNav() {
             <Package className="h-5 w-5" />
             Sales Executive
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/dashboard/purchase-orders" className="w-full">
+        {/* <Link href="/dashboard/purchase-orders" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/purchase-orders")
@@ -310,9 +310,9 @@ export function DashboardNav() {
             <FileText className="h-5 w-5" />
             Purchase Orders
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/dashboard/inbound" className="w-full">
+        {/* <Link href="/dashboard/inbound" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/inbound")
@@ -323,9 +323,9 @@ export function DashboardNav() {
             <Truck className="h-5 w-5" />
             Inbound
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/dashboard/grn" className="w-full">
+        {/* <Link href="/dashboard/grn" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
               pathname?.includes("/dashboard/grn")
@@ -336,8 +336,8 @@ export function DashboardNav() {
             <Receipt className="h-5 w-5" />
             GRN
           </div>
-        </Link>
-
+        </Link> */}
+{/* 
         <Link href="/dashboard/reverse-grn" className="w-full">
           <div
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
@@ -442,7 +442,7 @@ export function DashboardNav() {
             <Car className="h-5 w-5" />
             Drivers
           </div>
-        </Link>
+        </Link> */}
 
         <Link href="/dashboard/store-settings" className="w-full">
           <div

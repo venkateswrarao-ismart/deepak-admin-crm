@@ -103,7 +103,7 @@ export default function OrdersPage() {
     confirmed: 0,
     reminder: 0,
     out_for_delivery: 0,
-    delivered: 0,
+    delivered: 0, 
     cancelled: 0,
   })
 
@@ -187,143 +187,321 @@ export default function OrdersPage() {
   }, [searchParams])
 
   useEffect(() => {
-    const fetchAllOrders = async () => {
-      const pageSize = 1000
-      let allOrders: any[] = []
-      let from = 0
-      let to = pageSize - 1
-      let done = false
+  const fetchAllOrders = async () => {
+    const pageSize = 1000
+    let allOrders: any[] = []
+    let from = 0
+    let to = pageSize - 1
+    let done = false
 
-      while (!done) {
-        const { data, error } = await supabase
-          .from("orders")
-          .select(`
+    while (!done) {
+      const { data, error } = await supabase
+        .from("orders")
+        .select(
+          `
             *,
             customer:customer_id(full_name, phone)
-          `)
-          .range(from, to)
-
-        if (error) throw error
-
-        if (data && data.length > 0) {
-          allOrders = allOrders.concat(data)
-          from += pageSize
-          to += pageSize
-        } else {
-          done = true
-        }
-      }
-
-      return allOrders
-    }
-
-    const fetchOrders = async () => {
-      setIsLoading(true)
-      try {
-        let query = supabase.from("orders").select(
           `
-              *,
-              customer:customer_id(full_name, phone),
-              delivery_boy:delivery_boy_id(full_name, phone),
-              sales_executive:sales_executive_id(name, phone, manager:manager_id(name, phone)),
-              sales_manager:sales_manager_id(name, phone),
-            
-              comments
-            `,
-          { count: "exact" },
         )
+        .range(from, to)
 
-        // Apply filters
-        if (statusFilter.length > 0) {
-          query = query.in("status", statusFilter)
-        }
+      if (error) throw error
 
-        if (dateFilter) {
-          const today = new Date()
-          let startDate: Date
-
-          switch (dateFilter) {
-            case "today":
-              startDate = new Date(today.setHours(0, 0, 0, 0))
-              query = query.gte("created_at", startDate.toISOString())
-              break
-            case "yesterday":
-              startDate = new Date(today)
-              startDate.setDate(startDate.getDate() - 1)
-              startDate.setHours(0, 0, 0, 0)
-              const endDate = new Date(startDate)
-              endDate.setHours(23, 59, 59, 999)
-              query = query.gte("created_at", startDate.toISOString()).lte("created_at", endDate.toISOString())
-              break
-            case "last7days":
-              startDate = new Date(today)
-              startDate.setDate(startDate.getDate() - 7)
-              query = query.gte("created_at", startDate.toISOString())
-              break
-            case "last30days":
-              startDate = new Date(today)
-              startDate.setDate(startDate.getDate() - 30)
-              query = query.gte("created_at", startDate.toISOString())
-              break
-          }
-        } else if (dateRange?.from && dateRange?.to) {
-          const fromDate = startOfDay(dateRange.from)
-          const toDate = endOfDay(dateRange.to)
-          query = query.gte("created_at", fromDate.toISOString()).lte("created_at", toDate.toISOString())
-        }
-
-        if (executiveFilter) {
-          query = query.eq("sales_executive_id", executiveFilter)
-        }
-
-        if (managerFilter) {
-          query = query.eq("sales_manager_id", managerFilter)
-        }
-
-        if (searchTerm) {
-          const allOrders = await fetchAllOrders()
-          const filteredIds = allOrders
-            .filter(
-              (order) =>
-                order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                order.customer?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                order.delivery_address?.toLowerCase().includes(searchTerm.toLowerCase()),
-            )
-            .map((order) => order.id)
-
-          if (filteredIds.length > 0) {
-            query = query.in("id", filteredIds)
-          } else {
-            // No matches, ensure empty result
-            query = query.eq("id", "00000000-0000-0000-0000-000000000000")
-          }
-        }
-
-        // Pagination
-        const from = pageIndex * pageSize
-        const to = from + pageSize - 1
-
-        const { data, count, error } = await query.order("created_at", { ascending: false }).range(from, to)
-
-        if (error) throw error
-
-        setOrders(data as unknown as Order[])
-        setTotalCount(count || 0)
-
-        // Calculate total amount
-        if (data) {
-          const sum = data.reduce((acc, order) => acc + order.total_amount, 0)
-          setTotalAmount(sum)
-        }
-      } catch (error) {
-        console.error("Error fetching orders:", error)
-      } finally {
-        setIsLoading(false)
+      if (data && data.length > 0) {
+        allOrders = allOrders.concat(data)
+        from += pageSize
+        to += pageSize
+      } else {
+        done = true
       }
     }
 
-    fetchOrders()
-  }, [supabase, statusFilter, dateFilter, executiveFilter, managerFilter, pageIndex, pageSize, searchTerm, dateRange])
+    return allOrders
+  }
+
+  const fetchOrders = async () => {
+    setIsLoading(true)
+    try {
+      let query = supabase.from("orders").select(
+        `
+          *,
+          customer:customer_id(full_name, phone),
+          delivery_boy:delivery_boy_id(full_name, phone),
+          sales_executive:sales_executive_id(name, phone, manager:manager_id(name, phone)),
+          sales_manager:sales_manager_id(name, phone),
+          comments
+        `,
+        { count: "exact" }
+      )
+
+      // ✅ ONLY RENTAL ORDERS (start & end must exist)
+      query = query
+        .not("rental_start_datetime", "is", null)
+        .not("rental_end_datetime", "is", null)
+
+      // Status filter
+      if (statusFilter.length > 0) {
+        query = query.in("status", statusFilter)
+      }
+
+      // Date filter
+      if (dateFilter) {
+        const today = new Date()
+        let startDate: Date
+
+        switch (dateFilter) {
+          case "today":
+            startDate = new Date(today.setHours(0, 0, 0, 0))
+            query = query.gte("created_at", startDate.toISOString())
+            break
+
+          case "yesterday":
+            startDate = new Date(today)
+            startDate.setDate(startDate.getDate() - 1)
+            startDate.setHours(0, 0, 0, 0)
+            const endDate = new Date(startDate)
+            endDate.setHours(23, 59, 59, 999)
+            query = query
+              .gte("created_at", startDate.toISOString())
+              .lte("created_at", endDate.toISOString())
+            break
+
+          case "last7days":
+            startDate = new Date(today)
+            startDate.setDate(startDate.getDate() - 7)
+            query = query.gte("created_at", startDate.toISOString())
+            break
+
+          case "last30days":
+            startDate = new Date(today)
+            startDate.setDate(startDate.getDate() - 30)
+            query = query.gte("created_at", startDate.toISOString())
+            break
+        }
+      } else if (dateRange?.from && dateRange?.to) {
+        const fromDate = startOfDay(dateRange.from)
+        const toDate = endOfDay(dateRange.to)
+        query = query
+          .gte("created_at", fromDate.toISOString())
+          .lte("created_at", toDate.toISOString())
+      }
+
+      // Executive filter
+      if (executiveFilter) {
+        query = query.eq("sales_executive_id", executiveFilter)
+      }
+
+      // Manager filter
+      if (managerFilter) {
+        query = query.eq("sales_manager_id", managerFilter)
+      }
+
+      // Search filter
+      if (searchTerm) {
+        const allOrders = await fetchAllOrders()
+
+        const filteredIds = allOrders
+          .filter(
+            (order) =>
+              order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              order.customer?.full_name
+                ?.toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+              order.delivery_address
+                ?.toLowerCase()
+                .includes(searchTerm.toLowerCase())
+          )
+          .map((order) => order.id)
+
+        if (filteredIds.length > 0) {
+          query = query.in("id", filteredIds)
+        } else {
+          query = query.eq(
+            "id",
+            "00000000-0000-0000-0000-000000000000"
+          )
+        }
+      }
+
+      // Pagination
+      const from = pageIndex * pageSize
+      const to = from + pageSize - 1
+
+      const { data, count, error } = await query
+        .order("created_at", { ascending: false })
+        .range(from, to)
+
+      if (error) throw error
+
+      setOrders(data as Order[])
+      setTotalCount(count || 0)
+
+      if (data) {
+        const sum = data.reduce(
+          (acc, order) => acc + order.total_amount,
+          0
+        )
+        setTotalAmount(sum)
+      }
+    } catch (error) {
+      console.error("Error fetching orders:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  fetchOrders()
+}, [
+  supabase,
+  statusFilter,
+  dateFilter,
+  executiveFilter,
+  managerFilter,
+  pageIndex,
+  pageSize,
+  searchTerm,
+  dateRange,
+])
+
+
+  // useEffect(() => {
+  //   const fetchAllOrders = async () => {
+  //     const pageSize = 1000
+  //     let allOrders: any[] = []
+  //     let from = 0
+  //     let to = pageSize - 1
+  //     let done = false
+
+  //     while (!done) {
+  //       const { data, error } = await supabase
+  //         .from("orders")
+  //         .select(`
+  //           *,
+  //           customer:customer_id(full_name, phone)
+  //         `)
+  //         .range(from, to)
+
+  //       if (error) throw error
+
+  //       if (data && data.length > 0) {
+  //         allOrders = allOrders.concat(data)
+  //         from += pageSize
+  //         to += pageSize
+  //       } else {
+  //         done = true
+  //       }
+  //     }
+
+  //     return allOrders
+  //   }
+
+  //   const fetchOrders = async () => {
+  //     setIsLoading(true)
+  //     try {
+  //       let query = supabase.from("orders").select(
+  //         `
+  //             *,
+  //             customer:customer_id(full_name, phone),
+  //             delivery_boy:delivery_boy_id(full_name, phone),
+  //             sales_executive:sales_executive_id(name, phone, manager:manager_id(name, phone)),
+  //             sales_manager:sales_manager_id(name, phone),
+            
+  //             comments
+  //           `,
+  //         { count: "exact" },
+  //       )
+
+  //       // Apply filters
+  //       if (statusFilter.length > 0) {
+  //         query = query.in("status", statusFilter)
+  //       }
+
+  //       if (dateFilter) {
+  //         const today = new Date()
+  //         let startDate: Date
+
+  //         switch (dateFilter) {
+  //           case "today":
+  //             startDate = new Date(today.setHours(0, 0, 0, 0))
+  //             query = query.gte("created_at", startDate.toISOString())
+  //             break
+  //           case "yesterday":
+  //             startDate = new Date(today)
+  //             startDate.setDate(startDate.getDate() - 1)
+  //             startDate.setHours(0, 0, 0, 0)
+  //             const endDate = new Date(startDate)
+  //             endDate.setHours(23, 59, 59, 999)
+  //             query = query.gte("created_at", startDate.toISOString()).lte("created_at", endDate.toISOString())
+  //             break
+  //           case "last7days":
+  //             startDate = new Date(today)
+  //             startDate.setDate(startDate.getDate() - 7)
+  //             query = query.gte("created_at", startDate.toISOString())
+  //             break
+  //           case "last30days":
+  //             startDate = new Date(today)
+  //             startDate.setDate(startDate.getDate() - 30)
+  //             query = query.gte("created_at", startDate.toISOString())
+  //             break
+  //         }
+  //       } else if (dateRange?.from && dateRange?.to) {
+  //         const fromDate = startOfDay(dateRange.from)
+  //         const toDate = endOfDay(dateRange.to)
+  //         query = query.gte("created_at", fromDate.toISOString()).lte("created_at", toDate.toISOString())
+  //       }
+
+  //       if (executiveFilter) {
+  //         query = query.eq("sales_executive_id", executiveFilter)
+  //       }
+
+  //       if (managerFilter) {
+  //         query = query.eq("sales_manager_id", managerFilter)
+  //       }
+
+  //       if (searchTerm) {
+  //         const allOrders = await fetchAllOrders()
+  //         const filteredIds = allOrders
+  //           .filter(
+  //             (order) =>
+  //               order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //               order.customer?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //               order.delivery_address?.toLowerCase().includes(searchTerm.toLowerCase()),
+  //           )
+  //           .map((order) => order.id)
+
+  //         if (filteredIds.length > 0) {
+  //           query = query.in("id", filteredIds)
+  //         } else {
+  //           // No matches, ensure empty result
+  //           query = query.eq("id", "00000000-0000-0000-0000-000000000000")
+  //         }
+  //       }
+
+  //       // Pagination
+  //       const from = pageIndex * pageSize
+  //       const to = from + pageSize - 1
+
+  //       const { data, count, error } = await query.order("created_at", { ascending: false }).range(from, to)
+
+  //       if (error) throw error
+
+  //       setOrders(data as unknown as Order[])
+  //       setTotalCount(count || 0)
+
+  //       // Calculate total amount
+  //       if (data) {
+  //         const sum = data.reduce((acc, order) => acc + order.total_amount, 0)
+  //         setTotalAmount(sum)
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching orders:", error)
+  //     } finally {
+  //       setIsLoading(false)
+  //     }
+  //   }
+
+  //   fetchOrders()
+  // }, [supabase, statusFilter, dateFilter, executiveFilter, managerFilter, pageIndex, pageSize, searchTerm, dateRange])
 
   useEffect(() => {
     const fetchOrderStats = async () => {
