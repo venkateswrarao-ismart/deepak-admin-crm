@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { Button } from "@/components/ui/button"
 import {
   Select,
@@ -29,7 +29,7 @@ export function OrderStatusUpdateForm({
   const [status, setStatus] = useState(currentStatus)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createClient()
   const [authData, setAuthData] = useState<any>(null)
 
   useEffect(() => {

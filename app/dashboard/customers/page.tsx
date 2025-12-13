@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -87,7 +87,7 @@ export default function CustomersPage() {
         setLastActiveMap(lastActive)
 
         // Fetch all customers from Supabase
-        const supabase = createClientComponentClient()
+        const supabase = createClient()
 
         // Get all customers with role "customer"
         const {
@@ -127,7 +127,7 @@ export default function CustomersPage() {
 
         // Fallback to direct Supabase queries if API fails
         try {
-          const supabase = createClientComponentClient()
+          const supabase = createClient()
 
           // Get all customers
           const {

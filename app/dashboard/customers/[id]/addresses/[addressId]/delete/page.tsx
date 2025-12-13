@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, AlertTriangle } from "lucide-react"
@@ -18,7 +18,7 @@ interface DeleteAddressPageProps {
 
 export default function DeleteAddressPage({ params }: DeleteAddressPageProps) {
   const router = useRouter()
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
   const [isDeleting, setIsDeleting] = useState(false)
 
   const handleDelete = async () => {

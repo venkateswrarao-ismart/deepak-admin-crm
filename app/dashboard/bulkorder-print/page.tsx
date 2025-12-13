@@ -1,7 +1,7 @@
 "use client"
 import { useSearchParams, useRouter } from "next/navigation"
 import { useState, useEffect, useCallback } from "react"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { DataTable } from "@/components/data-table"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -147,7 +147,7 @@ export default function OrdersPage() {
   const [showBulkPrintModal, setShowBulkPrintModal] = useState(false)
   const [isPrinting, setIsPrinting] = useState(false)
 
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createClient()
   const { toast } = useToast()
 
   // Get auth data from localStorage

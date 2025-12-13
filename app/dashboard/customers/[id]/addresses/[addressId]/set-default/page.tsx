@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Check } from "lucide-react"
@@ -18,7 +18,7 @@ interface SetDefaultAddressPageProps {
 
 export default function SetDefaultAddressPage({ params }: SetDefaultAddressPageProps) {
   const router = useRouter()
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [address, setAddress] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)

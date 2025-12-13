@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -53,7 +53,7 @@ export default function AssignOrderPage({ params }: { params: { id: string } }) 
   const [error, setError] = useState<string | null>(null)
 
   const router = useRouter()
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createClient()
   const { toast } = useToast()
 
   // Fetch order, delivery agents, and current assignment

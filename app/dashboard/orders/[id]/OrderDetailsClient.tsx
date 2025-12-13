@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { useSearchParams, useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -119,7 +119,7 @@ export default function OrderDetailsClient({ params }: { params: { id: string } 
   const [editedSalesAgentName, setEditedSalesAgentName] = useState("")
   const [editedSalesAgentPhone, setEditedSalesAgentPhone] = useState("")
   const [isUpdatingSalesAgent, setIsUpdatingSalesAgent] = useState(false)
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createClient()
   const [deliveryAgents, setDeliveryAgents] = useState<
     Array<{ id: string; full_name: string | null; phone: string | null }>
   >([])

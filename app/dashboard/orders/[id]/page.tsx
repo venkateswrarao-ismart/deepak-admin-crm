@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -112,7 +112,7 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
   const searchParams = useSearchParams()
   const router = useRouter()
   const { toast } = useToast()
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createClient()
   const { id } = params
 
   // All state declarations at the top
