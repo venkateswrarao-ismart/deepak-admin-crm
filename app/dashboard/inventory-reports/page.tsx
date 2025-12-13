@@ -2,15 +2,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BarChart, LineChart, PieChart } from "lucide-react"
 import Link from "next/link"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 
 export const dynamic = "force-dynamic"
 
+import { NextResponse, type NextRequest } from "next/server"
+
+
+
+
 // Fetch low stock items from the database
 async function getLowStockItems() {
-  const supabase = createServerComponentClient({ cookies })
-
+    const supabase = createClient()
   // Fetch products data
   const { data: products, error: productsError } = await supabase
     .from("products")

@@ -1,4 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 import { MRPClient } from "./client"
 
@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic"
 
 // Server component to fetch data
 export default async function MRPUpdatePage() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createClient()
 
   // Fetch products data
   const { data: products, error } = await supabase.from("products").select("*").order("name")

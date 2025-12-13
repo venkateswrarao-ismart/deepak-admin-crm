@@ -1,4 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 import { SOHReportClient } from "./client"
 
@@ -19,7 +19,7 @@ export type StockItem = {
 
 // This function will run on the server
 async function getStockData() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createClient()
 
   // Fetch products data
   const { data: products, error: productsError } = await supabase
