@@ -113,7 +113,7 @@ export default function LoginPage() {
 
       console.log("Redirecting to dashboard...")
       // Force a complete page reload to ensure clean state
-     // window.location.replace("/dashboard")
+      window.location.replace("/dashboard")
     } catch (error: any) {
       console.error("Login failed:", error)
 

@@ -168,6 +168,7 @@ export function ProductForm({ productId }: ProductFormProps) {
       unit_of_measurement: "",
       mrp: "",
       cost_price: "",
+      company:"rentxp"
     },
   })
 

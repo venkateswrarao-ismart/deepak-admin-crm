@@ -927,9 +927,9 @@ export default function OrdersPage() {
             
             <!-- Company Info -->
             <div style="display: flex; border-bottom: 1px solid black; padding: 4px; min-height: 80px;">
-              <img src="/ismart2-logo.png" alt="Company Logo" style="height: 50px; width: auto; object-fit: contain; margin-right: 6px; flex-shrink: 0;">
+              <img src="/rentxp.png" alt="Company Logo" style="height: 50px; width: auto; object-fit: contain; margin-right: 6px; flex-shrink: 0;">
               <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0;">
-                <div style="font-weight: bold; font-size: 9px;">ISMART SYSTEMS LLP</div>
+                <div style="font-weight: bold; font-size: 9px;">Rentxp</div>
                 <div style="font-size: 8px;">
                   <div style="font-weight: bold; display: inline; padding-right: 4px;">Corporate Address:</div>
                   <br>
@@ -1084,7 +1084,7 @@ export default function OrdersPage() {
           <div style="width: 30%; padding-left: 4px; box-sizing: border-box;">
             <div style="font-size: 7px; font-weight: bold;">Bank Details</div>
             <div style="font-size: 7px;">
-              A/c Holder's Name: ISMART SYSTEMS LLP
+              A/c Holder's Name: Rentxp
               <br>
               Account Number: 10222238347
               <br>
@@ -1094,7 +1094,7 @@ export default function OrdersPage() {
             </div>
 
             <div style="border-top: 1px solid black; border-left: 1px solid black; margin-top: 4px; padding: 2px; box-sizing: border-box;">
-              <div style="font-size: 7px;">ISMART SYSTEMS LLP</div>
+              <div style="font-size: 7px;">Rentxp</div>
               <div style="margin-top: 20px; text-align: right; font-size: 7px;">Authorised Signatory</div>
             </div>
           </div>

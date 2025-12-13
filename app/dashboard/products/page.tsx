@@ -58,14 +58,14 @@ export default function ProductsPage() {
   }, [])
 
   useEffect(() => {
-    async function fetchProducts() {
-      try {
-        setIsLoading(true)
-        const supabase = createClient()
+  async function fetchProducts() {
+    try {
+      setIsLoading(true)
+      const supabase = createClient()
 
-        const { data, error } = await supabase
-          .from("products")
-          .select(`
+      const { data, error } = await supabase
+        .from("products")
+        .select(`
           id, 
           name, 
           price, 
@@ -82,30 +82,87 @@ export default function ProductsPage() {
           isactive,
           cost_price
         `)
-          .order("created_at", { ascending: false })
+        // ✅ ONLY RENTXP PRODUCTS
+        .eq("company", "rentxp")
+        .order("created_at", { ascending: false })
 
-        if (error) {
-          console.error("Error fetching products:", error)
-          return
-        }
-
-        setProducts(data || [])
-
-        // Check for tab query parameter and set active tab
-        const urlParams = new URLSearchParams(window.location.search)
-        const tabParam = urlParams.get("tab")
-        if (tabParam && ["all", "in_stock", "low_stock", "critical_stock"].includes(tabParam)) {
-          setActiveTab(tabParam)
-        }
-      } catch (err) {
-        console.error("Failed to fetch products:", err)
-      } finally {
-        setIsLoading(false)
+      if (error) {
+        console.error("Error fetching products:", error)
+        return
       }
-    }
 
-    fetchProducts()
-  }, [])
+      setProducts(data || [])
+
+      // Handle tab query param
+      const urlParams = new URLSearchParams(window.location.search)
+      const tabParam = urlParams.get("tab")
+
+      if (
+        tabParam &&
+        ["all", "in_stock", "low_stock", "critical_stock"].includes(tabParam)
+      ) {
+        setActiveTab(tabParam)
+      }
+    } catch (err) {
+      console.error("Failed to fetch products:", err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  fetchProducts()
+}, [])
+
+
+  // useEffect(() => {
+  //   async function fetchProducts() {
+  //     try {
+  //       setIsLoading(true)
+  //       const supabase = createClient()
+
+  //       const { data, error } = await supabase
+  //         .from("products")
+  //         .select(`
+  //         id, 
+  //         name, 
+  //         price, 
+  //         stock, 
+  //         selling_price,
+  //         category,
+  //         brand,
+  //         approval_status,
+  //         created_at,
+  //         image_url,
+  //         article_id,
+  //         discount_percentage,
+  //         mrp,
+  //         isactive,
+  //         cost_price
+  //       `)
+  //         .order("created_at", { ascending: false })
+
+  //       if (error) {
+  //         console.error("Error fetching products:", error)
+  //         return
+  //       }
+
+  //       setProducts(data || [])
+
+  //       // Check for tab query parameter and set active tab
+  //       const urlParams = new URLSearchParams(window.location.search)
+  //       const tabParam = urlParams.get("tab")
+  //       if (tabParam && ["all", "in_stock", "low_stock", "critical_stock"].includes(tabParam)) {
+  //         setActiveTab(tabParam)
+  //       }
+  //     } catch (err) {
+  //       console.error("Failed to fetch products:", err)
+  //     } finally {
+  //       setIsLoading(false)
+  //     }
+  //   }
+
+  //   fetchProducts()
+  // }, [])
 
   async function deleteProduct(id) {
     try {
@@ -446,7 +503,7 @@ export default function ProductsPage() {
       <div className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="text-2xl font-bold tracking-tight">Articles(Products)</h1>
         <div className="flex gap-2 mt-4 md:mt-0">
-          <Button
+          {/* <Button
             variant="outline"
             onClick={exportToExcel}
             disabled={isLoading || products.length === 0}
@@ -454,7 +511,7 @@ export default function ProductsPage() {
           >
             <Download className="h-4 w-4 mr-2" />
             <span>Export</span>
-          </Button>
+          </Button> */}
           <Link href="/dashboard/products/new">
             <Button className="bg-orange-500 hover:bg-orange-600 h-9 px-3 text-sm whitespace-nowrap flex items-center justify-center">
               <Plus className="h-4 w-4 mr-2" />

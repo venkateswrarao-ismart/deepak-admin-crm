@@ -1105,9 +1105,9 @@ const handleEditOrderItem = async (item) => {
           <div className="w-1/2 border-r border-black">
             {/* Company Info */}
             <div className="flex border-b border-black p-1">
-              <img src="/ismart2-logo.png" alt="Company Logo" className="h-24 object-contain object-left mr-2" />
+              <img src="/rent-xp.png" alt="Company Logo" className="h-24 object-contain object-left mr-2" />
               <div className="flex flex-col gap-1">
-                <div className="font-bold text-xs">ISMART SYSTEMS LLP</div>
+                <div className="font-bold text-xs">Rentxp</div>
                 <div className="text-xs">
                   <div className="font-semibold inline pr-2"> Corporate Address:</div>
                   <br />
@@ -1288,17 +1288,17 @@ const handleEditOrderItem = async (item) => {
           <div className="w-1/3">
             <div className="text-xs font-bold">Bank Details</div>
             <div className="text-xs">
-              A/c Holder's Name: ISMART SYSTEMS LLP
+              A/c Holder's Name: RentXP
               <br />
-              Account Number: 10222238347
+              Account Number: 
               <br />
-              IFSC CODE: IDFB0080225
+              IFSC CODE: 
               <br />
               Branch: SR.NAGAR BRANCH
             </div>
 
             <div className="border-t border-l border-black mt-2 p-1">
-              <div>ISMART SYSTEMS LLP</div>
+              <div>RentXP</div>
               <div className="mt-8 text-right">Authorised Signatory</div>
             </div>
           </div>

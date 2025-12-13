@@ -87,30 +87,62 @@ export default function CategoriesPage() {
     },
   ]
 
+  // useEffect(() => {
+  //   async function fetchCategories() {
+  //     try {
+  //       setLoading(true)
+  //       const supabase = createSupabaseClient()
+  //       const { data, error } = await supabase.from("categories").select("*").order("name")
+
+  //       if (error) throw error
+
+  //       setCategories(data || [])
+  //     } catch (error) {
+  //       console.error("Error fetching categories:", error)
+  //       toast({
+  //         title: "Error",
+  //         description: "Failed to fetch categories. Please refresh the page.",
+  //         variant: "destructive",
+  //       })
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+
+  //   fetchCategories()
+  // }, [])
+
   useEffect(() => {
-    async function fetchCategories() {
-      try {
-        setLoading(true)
-        const supabase = createSupabaseClient()
-        const { data, error } = await supabase.from("categories").select("*").order("name")
+  async function fetchCategories() {
+    try {
+      setLoading(true)
+      const supabase = createSupabaseClient()
 
-        if (error) throw error
+      const { data, error } = await supabase
+        .from("categories")
+        .select("*")
+        // ✅ ONLY RENTXP CATEGORIES
+        .eq("company", "rentxp")
+        .order("name")
 
-        setCategories(data || [])
-      } catch (error) {
-        console.error("Error fetching categories:", error)
-        toast({
-          title: "Error",
-          description: "Failed to fetch categories. Please refresh the page.",
-          variant: "destructive",
-        })
-      } finally {
-        setLoading(false)
-      }
+      if (error) throw error
+
+      setCategories(data || [])
+    } catch (error) {
+      console.error("Error fetching categories:", error)
+      toast({
+        title: "Error",
+        description: "Failed to fetch categories. Please refresh the page.",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
     }
+  }
 
-    fetchCategories()
-  }, [])
+  fetchCategories()
+}, [])
+
 
   async function deleteCategory(id: string) {
     try {
