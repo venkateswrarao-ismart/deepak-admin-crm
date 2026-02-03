@@ -1,10 +1,12 @@
+
+
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Edit } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@/utils/supabase/client"
 import { formatDate } from "@/lib/utils"
 import { ProductImageGallery } from "./ProductImageGallery" // Import the new component
 
@@ -42,7 +44,10 @@ async function getProductWithImages(id: string) {
 }
 
 export default async function ProductViewPage({ params }: ProductViewPageProps) {
-  const product = await getProductWithImages(params.id)
+  const { id } = await params
+  const product = await getProductWithImages(id)
+
+  console.log("params",params)
 
   if (!product) {
     notFound()

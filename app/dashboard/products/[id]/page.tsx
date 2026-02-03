@@ -8,29 +8,29 @@ interface ProductPageProps {
   }
 }
 
-async function getProduct(id: string) {
-  const supabase = createClient()
+// async function getProduct(id: string) {
+//   console.log("iddd",id)
+//   const supabase = createClient()
 
-  const { data, error } = await supabase.from("products").select("*").eq("id", id).single()
+//   const { data, error } = await supabase.from("products").select("*").eq("id", id).single()
 
-  if (error || !data) {
-    return null
-  }
+//   if (error || !data) {
+//     return null
+//   }
 
-  return data
-}
+//   return data
+// }
+
 
 export default async function EditProductPage({ params }: ProductPageProps) {
-  const product = await getProduct(params.id)
+  const { id } = await params
+ 
 
-  if (!product) {
-    notFound()
-  }
-
+  console.log("params",params)
   return (
     <div className="space-y-4 p-8">
       <h1 className="text-2xl font-bold tracking-tight">Edit Product</h1>
-      <ProductForm productId={params.id} />
+      <ProductForm productId={id} />
     </div>
   )
 }
