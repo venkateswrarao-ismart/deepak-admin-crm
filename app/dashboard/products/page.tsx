@@ -457,7 +457,7 @@ export default function ProductsPage() {
 
         return (
           <div className="flex items-center gap-2">
-            {isAdmin && (
+            {(
               <Link href={`/dashboard/products/${id}`}>
                 <Button variant="ghost" size="sm">
                   Edit
