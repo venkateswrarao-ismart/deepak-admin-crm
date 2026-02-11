@@ -178,6 +178,7 @@ export function ProductForm({ productId }: ProductFormProps) {
       const { data, error } = await supabase
         .from("categories")
         .select("id, name, image_url")
+        .eq("company","rentxp")
         .is("parent_id", null)
         .order("name")
 
