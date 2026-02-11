@@ -375,6 +375,7 @@ export function ProductForm({ productId }: ProductFormProps) {
             unit_of_measurement: values.unit_of_measurement,
             mrp: values.mrp,
             cost_price: values.cost_price,
+            company:"rentxp"
           })
           .select()
 
